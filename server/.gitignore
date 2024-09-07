@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+
+# Debugging and testing
+*.swp
+*.swo
+*.bak
+*.tmp
+coverage/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build directories
+dist/
+build/
+
+# IDE specific
+.vscode/
+.idea/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# TypeScript files (if applicable)
+*.tsbuildinfo
+
+# Local environment settings
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# MacOS Finder attributes
+.AppleDouble
+.LSOverride
+
+# lock files
+package-lock.json
+yarn.lock

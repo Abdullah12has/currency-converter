@@ -31,7 +31,7 @@ export const convertCurrency = async (req: Request, res: Response) => {
 
   try {
     // POST request to the GraphQL endpoint
-    const responseFromAPI = await axios.post(
+    const graphQLResponse = await axios.post(
       "https://swop.cx/graphql",
       { query },
       {
@@ -42,8 +42,9 @@ export const convertCurrency = async (req: Request, res: Response) => {
       }
     );
 
-    const fromRate = responseFromAPI.data.data.fromRate[0]?.quote; // Rate from EUR to 'from'
-    const toRate = responseFromAPI.data.data.toRate[0]?.quote; // Rate from EUR to 'to'
+    logging.log(graphQLResponse.data.data);
+    const fromRate = graphQLResponse.data.data.fromRate[0]?.quote; // Rate from EUR to 'from'
+    const toRate = graphQLResponse.data.data.toRate[0]?.quote; // Rate from EUR to 'to'
 
     if (!fromRate || !toRate) {
       return res.status(400).json({ error: "Invalid currency codes provided or rates not available." });
@@ -55,7 +56,7 @@ export const convertCurrency = async (req: Request, res: Response) => {
     const formattedValue = formatCurrency(convertedValue, to as string, locale);
 
     try {
-      await setCache(cacheKey, formattedValue);
+      await setCache(cacheKey, { from, to, amount, convertedValue: formattedValue });
     } catch (error) {
       logging.error("Failed to set cache in ConvertController. ", error);
     }
@@ -71,7 +72,7 @@ export const convertCurrency = async (req: Request, res: Response) => {
       logging.error("API Error Response:", error.response?.data?.errors);
       res.status(error.response?.status || 500).json({ error: "Failed to fetch exchange rates from API" });
     } else {
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(400).json({ error: "Error. Please check if you've input correct curriencies." + error });
     }
   }
 };

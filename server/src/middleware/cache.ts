@@ -33,6 +33,7 @@ export const cacheMiddleware = async (req: Request, res: Response, next: NextFun
 
     if (cachedData) {
       logging.info("Cache hit for key:" + cacheKey);
+      logging.info(cachedData);
       return res.json(JSON.parse(cachedData));
     }
 

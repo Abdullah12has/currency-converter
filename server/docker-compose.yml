@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  currencyconverter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: currencyconverter
+    ports:
+      - "8000:8000"
+    environment:
+      - SWOP_API_KEY=${SWOP_API_KEY}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis

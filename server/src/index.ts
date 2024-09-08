@@ -11,7 +11,7 @@ import { convertCurrency } from "./controllers/convertController";
 import { routeNotFound } from "./middleware/errorHandling";
 
 const port = process.env.PORT || 8000;
-const app: Express = express();
+export const app: Express = express();
 
 try {
   if (!process.env.NOENV && !fs.existsSync(".env")) {

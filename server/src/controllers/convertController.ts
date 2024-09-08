@@ -10,10 +10,13 @@ export const convertCurrency = async (req: Request, res: Response) => {
   // from is source currency
   // to is target currency
   // amount is amount of source currency
-  const { from, to, amount } = req.query;
+  let { from, to, amount } = req.query;
   const locale = "fi-FI";
 
   const cacheKey = from + "_" + to + "_" + amount;
+
+  from = (from as string).toUpperCase();
+  to = (to as string).toUpperCase();
 
   // Construct the GraphQL query to get the conversion rate from and to currencies from EUR
   const query = `

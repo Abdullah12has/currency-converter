@@ -15,7 +15,7 @@ const app: Express = express();
 
 try {
   if (!process.env.NOENV && !fs.existsSync(".env")) {
-    throw new Error(".env file not found. Did you copy the .env_example file to .env?");
+    throw new Error(".env file not found. Did you copy the .env_example file to .env and add your API key?");
   }
 
   if (!process.env.SWOP_API_KEY) {
@@ -32,7 +32,6 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
-// CSRF not really necessary becasue not doing anything other than GET in the app
 app.use(csurf({ cookie: true }));
 
 app.get("/test", (req: Request, res: Response) => {

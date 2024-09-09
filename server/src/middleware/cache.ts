@@ -2,7 +2,7 @@ import exp from "constants";
 import { Request, Response, NextFunction } from "express";
 import { createClient } from "redis";
 
-const client = createClient();
+export const client = createClient();
 
 client.on("error", (error) => {
   logging.error("REDIS ERROR", error);

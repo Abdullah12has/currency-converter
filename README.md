@@ -9,7 +9,7 @@ You go to the server directory in the terminal by writing: "cd server" and then 
 
 Now you can test if the server is working by going to http://localhost:8000/test. If you have started everything correctly, you should get "Server is Working".
 
-If you want to convert a currency you go to the following URL: "http://localhost:8000/convert" and then add your query at the end of it. For example: http://localhost:8000/convert?from=pkr&to=gbp&amount=100. There are 3 values you need to give for it to work properly. From, to, amount. From is the currency you want to convert, you can also call it your base currency. To is the currency you want results in. And amount is the amount you wanted to be converted. 
+If you want to convert a currency you go to the following URL: "http://localhost:8000/convert" and then add your query at the end of it. For example: http://localhost:8000/convert?from=PKR&to=GBP&amount=100. There are 3 values you need to give for it to work properly. From, to, amount. From is the currency you want to convert, you can also call it your base currency. To is the currency you want results in. And amount is the amount you wanted to be converted. 
 
 You cannot leave any of these 3 values empty. And you need to make sure you write the correct ISO 4217 Code of the currencies. For example: USD, EUR, GBP, TRY, PKR and so on. 
 

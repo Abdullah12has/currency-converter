@@ -3,7 +3,7 @@
 Thank you for taking out the time to review this test. 
 
 To run the project locally on your computer. You just need to clone the project and then make sure you have Node.js and npm installed.
-Before you run, make sure you have an .env file. Which you can make by copying and pasting .env.example file, where you need to add your API Key for it to work. 
+Before you run, make sure you have an .env file. Which you can make by copying and pasting .env.example file, where you need to add your API Key for it to work. Just make sure you keep the Redis url for local machine and not docker.
 Before you run, you also need to make sure you have redis installed and need to run the redis server by running the command "redis-server".
 You go to the server directory in the terminal by writing: "cd server" and then "npm install" to install the dependencies. After which you run "npm run dev" to run the API in development mode. 
 
@@ -16,14 +16,10 @@ You cannot leave any of these 3 values empty. And you need to make sure you writ
 
 DOCKER: 
 
-If you want to run the project using docker, just need to make sure you have docker installed and also have docker-compose installed. You just go into the server folder and write "docker-compose up --build". 
-Please note, there's an issue with the docker connectity between API and redis. Needs to be fixed before we use that. 
+If you want to run the project using docker, just need to make sure you have docker installed and also have docker-compose installed. You just go into the server folder and write "docker-compose up --build". Make sure you check out .env example file and keep the redis URL for docker and not the one for local machine. 
 
 InfluxDB & Grafana part is still not complete.
 
 FRONTEND:
 under construction. 
 
- And the tests have not been pushed onto the repo yet. 
-
-Working on these 3 things and they will be pushed onto the repo soon enough.

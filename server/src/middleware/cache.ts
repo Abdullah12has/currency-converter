@@ -2,10 +2,11 @@ import exp from "constants";
 import { Request, Response, NextFunction } from "express";
 import { createClient } from "redis";
 
-const REDIS_HOST = process.env.REDIS_HOST || "localhost";
 const REDIS_PORT = process.env.REDIS_PORT || "6379";
-export const client = createClient();
-
+const REDIS_URL = process.env.REDIS_URL || "redis://127.0.0.1";
+export const client = createClient({
+  url: `${REDIS_URL}:${REDIS_PORT}`,
+});
 client.on("error", (error) => {
   logging.error("REDIS ERROR", error);
 });

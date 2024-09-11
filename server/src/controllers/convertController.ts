@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 import { setCache } from "../middleware/cache";
+import { writePoint } from "../monitoring/influxClient";
 
 const formatCurrency = (value: number, currency: string, locale: string): string => {
   return new Intl.NumberFormat(locale, { style: "currency", currency }).format(value);
@@ -63,6 +64,18 @@ export const convertCurrency = async (req: Request, res: Response) => {
     } catch (error) {
       logging.error("Failed to set cache in ConvertController. ", error);
     }
+
+    writePoint(
+      "currency_conversion",
+      {
+        from: String(from),
+        to: String(to),
+      },
+      {
+        amount: parseFloat(String(amount)),
+        convertedValue: parseFloat(String(convertedValue)),
+      }
+    );
 
     res.json({
       from,

@@ -2,6 +2,8 @@ import exp from "constants";
 import { Request, Response, NextFunction } from "express";
 import { createClient } from "redis";
 
+const REDIS_HOST = process.env.REDIS_HOST || "localhost";
+const REDIS_PORT = process.env.REDIS_PORT || "6379";
 export const client = createClient();
 
 client.on("error", (error) => {

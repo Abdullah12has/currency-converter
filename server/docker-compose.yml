@@ -16,7 +16,7 @@ services:
       - "8000:8000"
     environment:
       - SWOP_API_KEY=${SWOP_API_KEY}
-      - REDIS_HOST=redis
+      - REDIS_HOST=localhost
       - REDIS_PORT=6379
     depends_on:
       - redis

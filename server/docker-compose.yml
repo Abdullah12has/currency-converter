@@ -32,8 +32,6 @@ services:
       - "8086:8086"
     volumes:
       - influxdb_data:/var/lib/influxdb2
-    networks:
-      - backend
 
   grafana:
     image: grafana/grafana-oss:latest
@@ -47,12 +45,6 @@ services:
       - influxdb
     volumes:
       - grafana_data:/var/lib/grafana
-    networks:
-      - backend
-
-networks:
-  backend:
-    driver: bridge
 
 volumes:
   influxdb_data:

@@ -1,6 +1,6 @@
 import { InfluxDB, Point, WriteApi } from "@influxdata/influxdb-client";
 
-const url = process.env.INFLUXDB_URL || "http://localhost:8086";
+const url = process.env.INFLUXDB_URL || "http://influxdb:8086";
 const token = process.env.INFLUXDB_TOKEN;
 const org = process.env.INFLUXDB_ORG || "orgname";
 const bucket = process.env.INFLUXDB_BUCKET || "orgbucket";
@@ -23,6 +23,7 @@ export const writePoint = (measurement: string, tags: Record<string, string>, fi
   });
 
   writeApi.writePoint(point);
+  logging.log("DATA WRITTEN TO INFLUX");
 };
 
 // Properly close the WriteApi when the process exits

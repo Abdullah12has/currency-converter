@@ -1,14 +1,4 @@
-import express, { Express, Request, Response } from "express";
 import fs from "fs";
-import helmet from "helmet";
-import csurf from "csurf";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import { loggingHandler } from "./middleware/loggingHandler";
-import { validateInput } from "./middleware/validateInput";
-import { cacheMiddleware } from "./middleware/cache";
-import { convertCurrency } from "./controllers/convertController";
-import { routeNotFound } from "./middleware/errorHandling";
 import { createApp } from "./createApp";
 
 const port = process.env.PORT || 8000;

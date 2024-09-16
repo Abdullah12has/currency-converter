@@ -1,18 +1,18 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <inputForm msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <inputForm />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent } from "vue";
+
+// Components
 import inputForm from "../components/inputForm.vue";
 
-@Options({
+export default defineComponent({
+  name: "HomeView",
+
   components: {
     inputForm,
   },
-})
-export default class HomeView extends Vue {}
+});
 </script>

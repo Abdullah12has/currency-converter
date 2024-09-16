@@ -1,78 +1,250 @@
 <template>
-  <div class="currency-converter">
-    <h1>Currency Converter</h1>
-
-    <form @submit.prevent="convertCurrency">
-      <div>
-        <label for="from">From Currency:</label>
-        <input type="text" v-model="fromCurrency" required />
-      </div>
-
-      <div>
-        <label for="to">To Currency:</label>
-        <input type="text" v-model="toCurrency" required />
-      </div>
-
-      <div>
-        <label for="amount">Amount:</label>
-        <input type="number" v-model="amount" required />
-      </div>
-
-      <button type="submit">Convert</button>
-    </form>
-
-    <div v-if="convertedAmount">
-      <h3>Conversion Result:</h3>
-      <p>{{ amount }} {{ fromCurrency }} = {{ convertedAmount }}</p>
-    </div>
-
-    <div v-if="error" class="error">{{ error }}</div>
-  </div>
+  <v-container class="fill-height" dark>
+    <v-row justify="center">
+      <v-col cols="12" md="6">
+        <v-card dark>
+          <v-card-title class="headline">Currency Converter</v-card-title>
+          <v-card-text>
+            <v-form v-model="valid">
+              <v-text-field
+                v-model="amount"
+                :rules="[(v: string) => !!v || 'Amount is required']"
+                label="Amount"
+                required
+                dark
+              ></v-text-field>
+              <v-autocomplete
+                v-model="fromCurrency"
+                :items="currencies"
+                :rules="[(v: string) => !!v || 'Source currency is required']"
+                label="From Currency"
+                required
+                dark
+              ></v-autocomplete>
+              <v-autocomplete
+                v-model="toCurrency"
+                :items="currencies"
+                :rules="[(v: string) => !!v || 'Target currency is required']"
+                label="To Currency"
+                required
+                dark
+              ></v-autocomplete>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              color="primary"
+              :disabled="!valid"
+              @click="convertCurrency"
+              dark
+            >
+              Convert
+            </v-btn>
+          </v-card-actions>
+          <v-card-text v-if="convertedValue">
+            <h3>Converted Value: {{ convertedValue }}</h3>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Vue, Options } from "vue-class-component";
 import axios from "axios";
 
-export default defineComponent({
-  name: "CurrencyConverter",
-  data() {
-    return {
-      fromCurrency: "",
-      toCurrency: "",
-      amount: 0,
-      convertedAmount: null as number | null,
-      error: "",
-    };
-  },
-  methods: {
-    async convertCurrency() {
-      try {
-        const response = await axios.get("http://localhost:8000/convert", {
-          params: {
-            from: this.fromCurrency,
-            to: this.toCurrency,
-            amount: this.amount,
-          },
-        });
+@Options({})
+export default class CurrencyConverter extends Vue {
+  amount = "";
+  fromCurrency = "";
+  toCurrency = "";
+  convertedValue = "";
+  valid = false;
 
-        this.convertedAmount = response.data.convertedValue;
-        this.error = "";
-      } catch (err: any) {
-        this.error = err.response?.data?.error || "An error occurred.";
-      }
-    },
-  },
-});
+  currencies = [
+    "AED",
+    "AFN",
+    "ALL",
+    "AMD",
+    "ANG",
+    "AOA",
+    "ARS",
+    "AUD",
+    "AWG",
+    "AZN",
+    "BAM",
+    "BBD",
+    "BDT",
+    "BGN",
+    "BHD",
+    "BIF",
+    "BMD",
+    "BND",
+    "BOB",
+    "BRL",
+    "BSD",
+    "BTN",
+    "BWP",
+    "BYN",
+    "BZD",
+    "CAD",
+    "CDF",
+    "CHF",
+    "CLP",
+    "CNY",
+    "COP",
+    "CRC",
+    "CUP",
+    "CVE",
+    "CZK",
+    "DJF",
+    "DKK",
+    "DOP",
+    "DZD",
+    "EGP",
+    "ERN",
+    "ETB",
+    "EUR",
+    "FJD",
+    "FKP",
+    "FOK",
+    "GBP",
+    "GEL",
+    "GGP",
+    "GHS",
+    "GIP",
+    "GMD",
+    "GNF",
+    "GTQ",
+    "GYD",
+    "HKD",
+    "HNL",
+    "HRK",
+    "HTG",
+    "HUF",
+    "IDR",
+    "ILS",
+    "IMP",
+    "INR",
+    "IQD",
+    "IRR",
+    "ISK",
+    "JEP",
+    "JMD",
+    "JOD",
+    "JPY",
+    "KES",
+    "KGS",
+    "KHR",
+    "KID",
+    "KMF",
+    "KRW",
+    "KWD",
+    "KYD",
+    "KZT",
+    "LAK",
+    "LBP",
+    "LKR",
+    "LRD",
+    "LSL",
+    "LYD",
+    "MAD",
+    "MDL",
+    "MGA",
+    "MKD",
+    "MMK",
+    "MNT",
+    "MOP",
+    "MRU",
+    "MUR",
+    "MVR",
+    "MWK",
+    "MXN",
+    "MYR",
+    "MZN",
+    "NAD",
+    "NGN",
+    "NIO",
+    "NOK",
+    "NPR",
+    "NZD",
+    "OMR",
+    "PAB",
+    "PEN",
+    "PGK",
+    "PHP",
+    "PKR",
+    "PLN",
+    "PYG",
+    "QAR",
+    "RON",
+    "RSD",
+    "RUB",
+    "RWF",
+    "SAR",
+    "SBD",
+    "SCR",
+    "SDG",
+    "SEK",
+    "SGD",
+    "SHP",
+    "SLL",
+    "SOS",
+    "SRD",
+    "SSP",
+    "STN",
+    "SYP",
+    "SZL",
+    "THB",
+    "TJS",
+    "TMT",
+    "TND",
+    "TOP",
+    "TRY",
+    "TTD",
+    "TVD",
+    "TWD",
+    "TZS",
+    "UAH",
+    "UGX",
+    "USD",
+    "UYU",
+    "UZS",
+    "VES",
+    "VND",
+    "VUV",
+    "WST",
+    "XAF",
+    "XCD",
+    "XDR",
+    "XOF",
+    "XPF",
+    "YER",
+    "ZAR",
+    "ZMW",
+    "ZWL",
+  ];
+
+  async convertCurrency() {
+    try {
+      const response = await axios.get("http://localhost:8000/convert", {
+        params: {
+          from: this.fromCurrency,
+          to: this.toCurrency,
+          amount: this.amount,
+        },
+      });
+      this.convertedValue = response.data.convertedValue;
+    } catch (error) {
+      console.error("Error converting currency:", error);
+    }
+  }
+}
 </script>
 
 <style scoped>
-.currency-converter {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.error {
-  color: red;
+.fill-height {
+  height: 100%;
 }
 </style>

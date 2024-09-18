@@ -2,8 +2,6 @@
 node_modules
 /dist
 
-
-
 # Local environment settings
 .env.local
 .env.development.local

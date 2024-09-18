@@ -60,16 +60,6 @@ services:
       - influxdb
 
 
-  frontend:
-    build:
-      context: ../client  
-      dockerfile: Dockerfile
-    container_name: frontend
-    environment:
-      - BACKEND_URL=http://currencyconverter:8000
-    ports:
-      - "8080:8080"  
-
 volumes:
   influxdb_data:
   grafana_data:

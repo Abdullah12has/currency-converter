@@ -44,5 +44,6 @@ For that:
 
 
 FRONTEND:
-under construction. 
+The frontend is created in Vue using the vuetify component library. The web application can be accessed on localhost:8080.
+
 

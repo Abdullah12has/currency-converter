@@ -228,7 +228,7 @@ export default class CurrencyConverter extends Vue {
 
   async convertCurrency() {
     try {
-      const response = await axios.get("http://localhost:8000/convert", {
+      const response = await axios.get(`${process.env.BACKEND_URL}/convert`, {
         params: {
           from: this.fromCurrency,
           to: this.toCurrency,

@@ -228,13 +228,15 @@ export default class CurrencyConverter extends Vue {
 
   async convertCurrency() {
     try {
-      const response = await axios.get(`${process.env.BACKEND_URL}/convert`, {
+      const backendUrl = process.env.VUE_APP_BACKEND_URL;
+      const response = await axios.get(`${backendUrl}/convert`, {
         params: {
           from: this.fromCurrency,
           to: this.toCurrency,
           amount: this.amount,
         },
       });
+      console.log(process?.env?.BACKEND_URL);
       this.convertedValue = response.data.convertedValue;
     } catch (error) {
       console.error("Error converting currency:", error);

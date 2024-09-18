@@ -45,5 +45,8 @@ For that:
 
 FRONTEND:
 The frontend is created in Vue using the vuetify component library. The web application can be accessed on localhost:8080.
+The Application is intentionally not containerized with docker because we usually have different places of deployment for the frontend and backend so it's a good idea to decouple them (according to single responsibility principle). so just go into the frontend application, correctly set the url of the backend and run the frontend using "npm run serve" if you want to run it in dev mode. And for production do npm run build and then serve the build file using nginx, apache or a CDN. 
+
+
 
 
